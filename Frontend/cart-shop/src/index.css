@@ -1,0 +1,68 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar {
+    font-size: 17px;
+    line-height: 26px;
+    text-transform: uppercase;
+    box-shadow: 0 8px -6px gray;
+    --webkit-box-shadow: 0 8px -6px gray;
+    border-bottom: 0.3px solid gray !important;
+}
+
+.nav-link {
+    font-weight: 300 !important;
+}
+
+.active {
+    border-bottom: 2px solid black;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-family: "robot";
+    letter-spacing: 3px;
+}
+
+/*footer*/
+.footer {
+    color: white;
+    padding: 25px;
+    text-align: center;
+    background: #000000;
+    background: -webkit-linear-gradient(to right,
+            #434343,
+            #000000);
+    background: linear-gradient(to right, #434343, #000000);
+}
+
+.footer a {
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+}
+
+.footer a:hover {
+    color: #ffefba;
+    border-bottom: 1px solid #ffefba;
+}
+
+.pnf {
+    display: flex;
+    min-height: 55vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/*"Register"*/
+.register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    flex-direction: column;
+}
