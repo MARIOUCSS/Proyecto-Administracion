@@ -53,4 +53,5 @@ const DeleteUser = (id) => {
 module.exports = {
   GetUsers,
   RegisterUser,
+  DeleteUser,
 };
