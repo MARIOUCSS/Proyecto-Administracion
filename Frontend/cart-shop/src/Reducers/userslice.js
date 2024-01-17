@@ -56,7 +56,7 @@ export const Userdelete = createAsyncThunk(
   async (id) => {
     try {
       const { data } = await axios.delete(
-        `${url}/user/delete-category/${id}`,
+        `${url}/user/delete-user/${id}`,
         SetHeader()
       );
       return data.message;

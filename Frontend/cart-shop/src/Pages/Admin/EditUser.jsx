@@ -142,7 +142,7 @@ function EditUser({
               </select>
             </div>
             <button type="submit" class="btn btn-primary">
-              Registrar Usuario
+              Editar Usuario
             </button>
           </form>
         </DialogContent>

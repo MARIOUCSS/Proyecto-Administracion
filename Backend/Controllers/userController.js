@@ -46,9 +46,21 @@ const RegisterUser = async (req, res) => {
     user: newUser,
   });
 };
-const DeleteUser = (id) => {
+const DeleteUser = async (req, res) => {
   try {
-  } catch (error) {}
+    const { id } = req.params;
+    await userModel.findByIdAndDelete(id);
+    res.status(200).send({
+      success: true,
+      message: "User Deleted Succesfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "error deleting category",
+    });
+  }
 };
 module.exports = {
   GetUsers,
