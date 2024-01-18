@@ -62,8 +62,13 @@ const DeleteUser = async (req, res) => {
     });
   }
 };
+const UpdateUser = () => {
+  try {
+  } catch (error) {}
+};
 module.exports = {
   GetUsers,
   RegisterUser,
   DeleteUser,
+  UpdateUser,
 };
