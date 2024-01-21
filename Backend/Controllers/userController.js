@@ -62,9 +62,41 @@ const DeleteUser = async (req, res) => {
     });
   }
 };
-const UpdateUser = () => {
+const UpdateUser = async (req, res) => {
   try {
-  } catch (error) {}
+    const { name, email, password, phone, address, answer, rol } = req.body;
+    const { id } = req.params;
+    if (password && password.length < 6) {
+      return res.json({ error: "Passsword is required and 6 character" });
+    }
+    const hashed = password ? await hashPassword(password) : password;
+    const updateuser = await userModel.findByIdAndUpdate(
+      id,
+      {
+        name: name,
+        email: email,
+        phone: phone,
+        address: address,
+        answer: answer,
+        role: rol,
+        password: hashed,
+      },
+      {
+        new: true,
+      }
+    );
+    res.status(200).send({
+      success: true,
+      message: "User Update Successfully",
+      updateuser,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error interno del servidor",
+    });
+  }
 };
 module.exports = {
   GetUsers,

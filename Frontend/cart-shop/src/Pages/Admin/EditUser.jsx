@@ -14,15 +14,17 @@ function EditUser({
   Useraddress,
   Useranswer,
   role,
+  passw,
 }) {
   const [open, setOpen] = React.useState(false);
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  //const [password, setPassword] = React.useState("");
   const [phone, setPhone] = React.useState("");
   const [address, setAddress] = React.useState("");
   const [answer, setAnswer] = React.useState("");
   const [rol, setRol] = React.useState("");
+  const [pas, setPas] = React.useState("");
   const handleClickOpen = () => {
     setOpen(true);
     setName(Username);
@@ -31,6 +33,7 @@ function EditUser({
     setAddress(Useraddress);
     setAnswer(Useranswer);
     setRol(role);
+    setPas(passw);
   };
 
   const handleClose = () => {
@@ -109,8 +112,8 @@ function EditUser({
                 type="password"
                 className="form-control"
                 id="exampleInputPassword1"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={pas}
+                onChange={(e) => setPas(e.target.value)}
               />
             </div>
 

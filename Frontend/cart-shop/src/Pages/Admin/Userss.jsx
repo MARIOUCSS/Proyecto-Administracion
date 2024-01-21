@@ -32,6 +32,7 @@ function Userss() {
         address: item.address,
         answer: item.answer,
         role: item.role === 1 ? "Administrador" : "Usuario",
+        password: item.password,
       };
     });
 
@@ -59,6 +60,7 @@ function Userss() {
               Useraddress={params.row.address}
               Useranswer={params.row.answer}
               role={params.row.role === "Administrador" ? 1 : 0}
+              passw={params.row.password}
             >
               Edit
             </EditUser>
