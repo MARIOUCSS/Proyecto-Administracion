@@ -15,6 +15,25 @@ const initialState = {
   message: "",
 };
 
+export const UpdateUser = createAsyncThunk(
+  "Users/UpdateUser",
+  async ({ id }) => {
+    try {
+      const { data } = await axios.put(
+        `${url}/user/update-user/${id}`,
+        {
+          name,
+          cc,
+        },
+        SetHeader()
+      );
+      return data.message;
+    } catch (error) {
+      console.log("Error en la acción UpdateCategory:", error);
+      throw error; // Lanza el error para que sea capturado por el componente
+    }
+  }
+);
 export const GetUsers = createAsyncThunk(
   "Users/GetUsers",
   async (values, { rejectWithValue }) => {
@@ -71,6 +90,29 @@ const userSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    //Update User
+    builder.addCase(UpdateUser.pending, (state, action) => {
+      return { ...state, registerStatus: "pending" };
+    });
+    builder.addCase(UpdateUser.fulfilled, (state, action) => {
+      if (action.payload) {
+        const message = action.payload;
+        return {
+          ...state,
+          message: message,
+          registerStatus: "success",
+        };
+      } else {
+        return state;
+      }
+    });
+    builder.addCase(UpdateUser.rejected, (state, action) => {
+      return {
+        ...state,
+        message: "",
+        registerStatus: "rejected",
+      };
+    });
     //Delete User
     builder.addCase(Userdelete.pending, (state, action) => {
       return { ...state, registerStatus: "pending" };
