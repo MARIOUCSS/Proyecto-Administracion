@@ -27,6 +27,8 @@ const catRoute = require("./Routes/categoryRoute");
 app.use("/api/v1/category", catRoute);
 const userRoute = require("./Routes/userRoute");
 app.use("/api/v1/user", userRoute);
+const ProdRoute = require("./Routes/ProductRoute");
+app.use("/api/v1/product", ProdRoute);
 ////
 app.listen(port, () => {
   console.log(`servidor corriendo ${port}`);

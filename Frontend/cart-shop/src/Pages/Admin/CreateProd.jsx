@@ -10,7 +10,7 @@ function CreateProd() {
           <div className="col-md-3">
             <AdminMenu />
           </div>
-          <div className="col-md-9">create PRODUC</div>
+          <div className="col-md-9">create PRODUCd</div>
         </div>
       </div>
     </Layout>

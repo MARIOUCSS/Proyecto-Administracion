@@ -61,6 +61,7 @@ function Userss() {
               Useranswer={params.row.answer}
               role={params.row.role === "Administrador" ? 1 : 0}
               passw={params.row.password}
+              id={params.row.id}
             >
               Edit
             </EditUser>

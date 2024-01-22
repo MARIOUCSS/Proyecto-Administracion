@@ -17,13 +17,18 @@ const initialState = {
 
 export const UpdateUser = createAsyncThunk(
   "Users/UpdateUser",
-  async ({ id }) => {
+  async ({ id, name, email, phone, address, answer, rol, password }) => {
     try {
       const { data } = await axios.put(
         `${url}/user/update-user/${id}`,
         {
           name,
-          cc,
+          email,
+          phone,
+          address,
+          answer,
+          rol,
+          password,
         },
         SetHeader()
       );

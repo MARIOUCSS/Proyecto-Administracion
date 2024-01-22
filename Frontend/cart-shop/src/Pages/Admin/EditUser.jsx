@@ -6,7 +6,9 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { GetUsers, UpdateUser } from "../../Reducers/userslice";
 function EditUser({
   Username,
   Useremail,
@@ -15,6 +17,7 @@ function EditUser({
   Useranswer,
   role,
   passw,
+  id,
 }) {
   const [open, setOpen] = React.useState(false);
   const [name, setName] = React.useState("");
@@ -25,6 +28,9 @@ function EditUser({
   const [answer, setAnswer] = React.useState("");
   const [rol, setRol] = React.useState("");
   const [pas, setPas] = React.useState("");
+  const [ids, setIds] = React.useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleClickOpen = () => {
     setOpen(true);
     setName(Username);
@@ -34,12 +40,33 @@ function EditUser({
     setAnswer(Useranswer);
     setRol(role);
     setPas(passw);
+    setIds(id);
   };
 
   const handleClose = () => {
     setOpen(false);
   };
-
+  const handlesubmit = (e) => {
+    e.preventDefault();
+    const pp = { name, email, phone, address, answer, rol, pas, ids };
+    console.log(pp);
+    dispatch(
+      UpdateUser({
+        id: ids,
+        name: name,
+        email: email,
+        phone: phone,
+        address: address,
+        answer: answer,
+        rol: rol,
+        password: pas,
+      })
+    ).then(() => {
+      dispatch(GetUsers());
+      setOpen(false);
+      navigate("/dashboard/admin/users");
+    });
+  };
   return (
     <React.Fragment>
       <Button
@@ -52,7 +79,7 @@ function EditUser({
         <DialogTitle>EDIT USER :{name}</DialogTitle>
         <DialogContent>
           <form
-            // onSubmit={handlesubmit}
+            onSubmit={handlesubmit}
             className="row g-3"
             style={{ width: "100%" }}
           >
