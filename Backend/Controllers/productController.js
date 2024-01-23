@@ -16,6 +16,23 @@ const GetProducts = async (req, res) => {
     });
   }
 };
+const DeleteProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await ProductModel.findByIdAndDelete(id);
+    res.status(200).send({
+      success: true,
+      message: "Product Deleted Succesfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "error deleting Product",
+    });
+  }
+};
 module.exports = {
   GetProducts,
+  DeleteProduct,
 };

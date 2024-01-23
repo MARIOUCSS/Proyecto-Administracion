@@ -5,11 +5,15 @@ import { DataGrid } from "@mui/x-data-grid";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import CreateProducts from "./CreateProducts";
+import { Productdelete, GetProducts } from "../../Reducers/productslice";
 function CreateProd() {
   const product = useSelector((state) => state.product);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const handleDelete = (id) => {
     console.log(id);
+    dispatch(Productdelete(id)).then(() => {
+      dispatch(GetProducts());
+    });
   };
   const rows =
     product &&

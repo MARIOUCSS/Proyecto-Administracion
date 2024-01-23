@@ -13,7 +13,20 @@ const initialState = {
   deleteStatus: null,
   message: "",
 };
-
+export const Productdelete = createAsyncThunk(
+  "Product/Productdelete",
+  async (id) => {
+    try {
+      const { data } = await axios.delete(
+        `${url}/product/delete-product/${id}`,
+        SetHeader()
+      );
+      return data.message;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 export const GetProducts = createAsyncThunk(
   "Products/GetProducts",
   async (values, { rejectWithValue }) => {
@@ -31,6 +44,29 @@ const Productslice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    //Delete Product
+    builder.addCase(Productdelete.pending, (state, action) => {
+      return { ...state, registerStatus: "pending" };
+    });
+    builder.addCase(Productdelete.fulfilled, (state, action) => {
+      if (action.payload) {
+        const message = action.payload;
+        return {
+          ...state,
+          message: message,
+          registerStatus: "success",
+        };
+      } else {
+        return state;
+      }
+    });
+    builder.addCase(Productdelete.rejected, (state, action) => {
+      return {
+        ...state,
+        message: "",
+        registerStatus: "rejected",
+      };
+    });
     //All Products
     builder.addCase(GetProducts.pending, (state, action) => {
       return { ...state, registerStatus: "pending" };

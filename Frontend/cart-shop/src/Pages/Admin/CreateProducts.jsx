@@ -10,6 +10,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 function CreateProducts() {
   const [open, setOpen] = React.useState(false);
+  ///creamos el producto
+
   const handleClickOpen = () => {
     setOpen(true);
   };
