@@ -7,7 +7,9 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { CreateProduct, GetProducts } from "../../Reducers/productslice";
+
+//import { useNavigate } from "react-router-dom";
 function CreateProducts() {
   const [open, setOpen] = React.useState(false);
   const [name, setName] = React.useState("");
@@ -17,13 +19,44 @@ function CreateProducts() {
   const [quantity, setQuantity] = React.useState("");
   const [shipping, setShipping] = React.useState("");
   const [photo, setPhoto] = React.useState("");
+
   const category = useSelector((state) => state.category);
+  const dispatch = useDispatch();
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+  };
+  const handlesubmitpro = (e) => {
+    e.preventDefault();
+    const Pro = {
+      name,
+      description,
+      price,
+      categoryId,
+      quantity,
+      shipping: shipping === 0 ? true : false,
+      photo,
+    };
+
+    dispatch(CreateProduct(Pro))
+      .then(() => {
+        setOpen(false);
+        dispatch(GetProducts());
+      })
+      .catch((error) => {
+        console.error("Error al crear el producto:", error);
+        // Puedes mostrar un mensaje de error al usuario si es necesario
+      });
+    setName("");
+    setDescription("");
+    setPrice("");
+    setPhoto("");
+    setCategoryId("");
+    setShipping("");
+    setQuantity("");
   };
 
   return (
@@ -52,56 +85,43 @@ function CreateProducts() {
         <DialogTitle>CREATE PRODUCT</DialogTitle>
         <DialogContent>
           <form
-            //onSubmit={handlesubmit}
+            onSubmit={handlesubmitpro}
             className="row g-3"
             style={{ width: "100%" }}
           >
             <div class="col-md-6">
-              <label for="exampleInputPassword1" class="form-label">
-                Name
-              </label>
+              <label class="form-label">Name</label>
               <input
                 type="text"
                 className="form-control"
-                id="exampleInputPassword1"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div class="col-md-6">
-              <label for="exampleInputPassword1" class="form-label">
-                Description
-              </label>
+              <label class="form-label">Description</label>
               <input
                 type="text"
                 className="form-control"
-                id="exampleInputPassword1"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div>
             <div class="col-md-6">
-              <label for="exampleInputPassword1" class="form-label">
-                Price
-              </label>
+              <label class="form-label">Price</label>
               <input
                 type="text"
                 className="form-control"
-                id="exampleInputPassword1"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
               />
             </div>
             <div className="col-md-6">
-              <label for="inputState" className="form-label">
-                Category
-              </label>
+              <label className="form-label">Category</label>
               <select
-                id="inputState"
                 className="form-select"
                 value={categoryId}
                 onChange={(e) => setCategoryId(e.target.value)}
-                category
               >
                 {category.categories.map((x) => (
                   <option key={x._id} value={x._id}>
@@ -111,23 +131,17 @@ function CreateProducts() {
               </select>
             </div>
             <div class="col-md-6">
-              <label for="exampleInputPassword1" class="form-label">
-                Quantity
-              </label>
+              <label class="form-label">Quantity</label>
               <input
                 type="text"
                 className="form-control"
-                id="exampleInputPassword1"
                 value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
               />
             </div>
             <div className="col-md-6">
-              <label for="inputState" className="form-label">
-                Shipping
-              </label>
+              <label className="form-label">Shipping</label>
               <select
-                id="inputState"
                 className="form-select"
                 value={shipping}
                 onChange={(e) => setShipping(e.target.value)}
@@ -146,7 +160,10 @@ function CreateProducts() {
                 type="file"
                 name="photo"
                 accept="image/*"
-                onChange={(e) => setPhoto(e.target.files[0])}
+                onChange={(e) => {
+                  setPhoto(e.target.files[0]);
+                  console.log("Estado de photo:", e.target.files[0]);
+                }}
               />
             </div>
             <button type="submit" class="btn btn-primary">

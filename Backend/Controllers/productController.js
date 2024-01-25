@@ -49,6 +49,8 @@ const CreateProduct = async (req, res) => {
         return res.status(500).send({ error: "Category is required" });
       case !quantity:
         return res.status(500).send({ error: "Quantity is required" });
+      case !shipping:
+        return res.status(500).send({ error: "Shipping is required" });
       case photo && photo.size > 100000:
         return res
           .status(500)
@@ -68,7 +70,7 @@ const CreateProduct = async (req, res) => {
     await products.save();
     res.status(201).send({
       success: true,
-      message: "Product creado correctamente",
+      message: "Successfully created product",
       products,
     });
   } catch (error) {
