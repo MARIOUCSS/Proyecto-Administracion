@@ -13,10 +13,12 @@ import ForgotPassword from "./Pages/auth/ForgotPassword";
 import AdminRoute from "./Components/Routes/AdminRoute";
 import AdminDashboard from "./Pages/Admin/AdminDashboard";
 import CreateCategory from "./Pages/Admin/CreateCategory";
+
 import CreateProd from "./Pages/Admin/CreateProd";
 import Userss from "./Pages/Admin/Userss";
 import Orders from "./Pages/User/Orders";
 import Profile from "./Pages/User/Profile";
+import Pagedetails from "./Pages/Pagedetails";
 
 function App() {
   //ojo :Si quieres acceder al dashboard de manera directa primero tiene que
@@ -26,6 +28,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Homepages />} />
+        <Route path="/product/:slug" element={<Pagedetails />} />
         {/* //user */}
         <Route path="/dashboard" element={<PrivateRoute />}>
           <Route path="user" element={<Dashboard />} />

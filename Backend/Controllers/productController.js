@@ -81,8 +81,60 @@ const CreateProduct = async (req, res) => {
     });
   }
 };
+const GetsingleProduct = async (req, res) => {
+  try {
+    const Product = await ProductModel.findOne({
+      slug: req.params.slug,
+    })
+      .select("-photo")
+      .populate("category");
+    res.status(200).send({
+      success: true,
+      message: "Single product",
+      Product,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error Obteniendo el  Producto",
+    });
+  }
+};
+const GetsinglePhoto = async (req, res) => {
+  try {
+    const product = await ProductModel.findById(req.params.pid).select("photo");
+
+    if (!product) {
+      return res.status(404).send({
+        success: false,
+        message: "Producto no encontrado",
+      });
+    }
+
+    const { photo } = product;
+
+    if (!photo || !photo.data) {
+      return res.status(404).send({
+        success: false,
+        message: "Imagen no encontrada",
+      });
+    }
+
+    res.set("Content-Type", photo.contentType);
+    return res.status(200).send(photo.data);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error obteniendo la foto",
+    });
+  }
+};
 module.exports = {
   GetProducts,
   DeleteProduct,
   CreateProduct,
+  GetsingleProduct,
+  GetsinglePhoto,
 };

@@ -12,32 +12,19 @@ const initialState = {
   userLoaded: false,
   deleteStatus: null,
   message: "",
+  SingleProduct: {},
 };
-
-// export const CreateProduct = createAsyncThunk(
-//   "Product/CreateProduct",
-//   async (values, { rejectWithValue }) => {
-//     try {
-//       const { data } = await axios.post(
-//         `${url}/product/create-product`,
-//         {
-//           name: values.name,
-//           description: values.description,
-//           price: values.price,
-//           category: values.categoryId,
-//           quantity: values.quantity,
-//           shipping: values.shipping,
-//           photo: values.photo,
-//         },
-//         SetHeader()
-//       );
-//       return data.message;
-//     } catch (error) {
-//       console.log(error.response.data);
-//       return rejectWithValue(error.response.data);
-//     }
-//   }
-// );
+export const SingleProduc = createAsyncThunk(
+  "Product/SingleProduc",
+  async (slug) => {
+    try {
+      const { data } = await axios.get(`${url}/product/get-product/${slug}`);
+      return data?.Product;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 export const CreateProduct = createAsyncThunk(
   "Product/CreateProduct",
   async (pro) => {
@@ -90,11 +77,34 @@ export const GetProducts = createAsyncThunk(
     }
   }
 );
-const Productslice = createSlice({
+export const Productslice = createSlice({
   name: "Products",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    //Single-Product
+    builder.addCase(SingleProduc.pending, (state, action) => {
+      return { ...state, registerStatus: "pending" };
+    });
+    builder.addCase(SingleProduc.fulfilled, (state, action) => {
+      if (action.payload) {
+        const product = action.payload;
+        return {
+          ...state,
+          SingleProduct: product,
+          registerStatus: "success",
+        };
+      } else {
+        return state;
+      }
+    });
+    builder.addCase(SingleProduc.rejected, (state, action) => {
+      return {
+        ...state,
+        message: "",
+        registerStatus: "rejected",
+      };
+    });
     //Create Product
     builder.addCase(CreateProduct.pending, (state, action) => {
       return { ...state, registerStatus: "pending" };
