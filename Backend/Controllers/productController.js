@@ -131,10 +131,35 @@ const GetsinglePhoto = async (req, res) => {
     });
   }
 };
+const RelatedProduct = async (req, res) => {
+  try {
+    const { pid, cid } = req.params;
+    const products = await ProductModel.find({
+      //El ID de la categoria
+      category: cid,
+      //Tiene que ser diferente al pid por eso se pone $ne:pid
+      _id: { $ne: pid },
+    })
+      .limit(3)
+      .populate("category");
+    res.status(200).send({
+      success: true,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error con los productos",
+    });
+  }
+};
 module.exports = {
   GetProducts,
   DeleteProduct,
   CreateProduct,
   GetsingleProduct,
   GetsinglePhoto,
+
+  RelatedProduct,
 };

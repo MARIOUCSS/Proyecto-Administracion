@@ -13,7 +13,21 @@ const initialState = {
   deleteStatus: null,
   message: "",
   SingleProduct: {},
+  ProductsRelated: [],
 };
+export const ProductRelated = createAsyncThunk(
+  "Product/ProductRelated",
+  async ({ pid, cid }) => {
+    try {
+      const { data } = await axios.get(
+        `${url}/product/related-product/${pid}/${cid}`
+      );
+      return data?.products;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 export const SingleProduc = createAsyncThunk(
   "Product/SingleProduc",
   async (slug) => {
@@ -82,6 +96,29 @@ export const Productslice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    //Related-Product
+    builder.addCase(ProductRelated.pending, (state, action) => {
+      return { ...state, registerStatus: "pending" };
+    });
+    builder.addCase(ProductRelated.fulfilled, (state, action) => {
+      if (action.payload) {
+        const products = action.payload;
+        return {
+          ...state,
+          ProductsRelated: products,
+          registerStatus: "success",
+        };
+      } else {
+        return state;
+      }
+    });
+    builder.addCase(ProductRelated.rejected, (state, action) => {
+      return {
+        ...state,
+        message: "",
+        registerStatus: "rejected",
+      };
+    });
     //Single-Product
     builder.addCase(SingleProduc.pending, (state, action) => {
       return { ...state, registerStatus: "pending" };
