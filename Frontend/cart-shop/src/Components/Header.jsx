@@ -4,8 +4,18 @@ import { FaCartShopping } from "react-icons/fa6";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../Reducers/authslice";
 import { toast } from "react-toastify";
+import { Badge } from "antd";
+import { ShoppingCartOutlined } from "@ant-design/icons";
 function Header() {
   const auth = useSelector((state) => state.auth);
+  const cartShop = useSelector((state) => state.cartShop);
+  const Cantidadshop = () => {
+    const Cartshop = [...cartShop.cartItems];
+    const total = Cartshop.reduce((ac, x) => {
+      return ac + x.cuantity;
+    }, 0);
+    return total;
+  };
   const dispatch = useDispatch();
   return (
     <>
@@ -111,9 +121,11 @@ function Header() {
               )}
 
               <li className="nav-item">
-                <NavLink to="/cart" className="nav-link" href="#">
-                  Cart(0)
-                </NavLink>
+                <Badge count={Cantidadshop()} showZero>
+                  <NavLink to="/cart" className="nav-link">
+                    <ShoppingCartOutlined style={{ fontSize: "24px" }} />
+                  </NavLink>
+                </Badge>
               </li>
             </ul>
           </div>

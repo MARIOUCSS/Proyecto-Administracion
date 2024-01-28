@@ -2,10 +2,12 @@ import React from "react";
 import Layout from "../Components/Layout";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { AddToCart } from "../Reducers/cartShopping";
 function Homepages() {
   //const auth = useSelector((state) => state.auth);
   const products = useSelector((state) => state.product);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   return (
     <Layout>
       <h1>About Page</h1>
@@ -38,7 +40,7 @@ function Homepages() {
                   </button>
                   <button
                     className="btn btn-secondary ms-1"
-                    // onClick={() => AddCart(product)}
+                    onClick={() => dispatch(AddToCart(x))}
                   >
                     ADD TO CART
                   </button>

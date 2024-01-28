@@ -19,6 +19,7 @@ import Userss from "./Pages/Admin/Userss";
 import Orders from "./Pages/User/Orders";
 import Profile from "./Pages/User/Profile";
 import Pagedetails from "./Pages/Pagedetails";
+import Cartpages from "./Pages/Cartpages";
 
 function App() {
   //ojo :Si quieres acceder al dashboard de manera directa primero tiene que
@@ -29,6 +30,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepages />} />
         <Route path="/product/:slug" element={<Pagedetails />} />
+        <Route path="/cart" element={<Cartpages />} />
         {/* //user */}
         <Route path="/dashboard" element={<PrivateRoute />}>
           <Route path="user" element={<Dashboard />} />
