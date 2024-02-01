@@ -73,3 +73,15 @@
     object-fit: cover;
 
 }
+
+.cart-login {
+    background: yellow;
+    border-radius: 8%;
+    width: 14vh;
+}
+
+.continue-shopping span {
+    background: rgb(red, green, blue);
+    border-radius: 8%;
+    width: 14vh;
+}

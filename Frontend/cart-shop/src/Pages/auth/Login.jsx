@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "../../Components/Layout";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { LoginUser } from "../../Reducers/authslice";
@@ -9,6 +9,7 @@ import { LoginUser } from "../../Reducers/authslice";
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -18,7 +19,7 @@ function Login() {
     const louser = { email, password };
     dispatch(LoginUser(louser));
     toast.success("Login");
-    navigate("/");
+    navigate(location.state || "/");
   };
 
   return (
