@@ -6,6 +6,7 @@ import { logout } from "../Reducers/authslice";
 import { toast } from "react-toastify";
 import { Badge } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
+import SearchImput from "./SearchImput";
 function Header() {
   const auth = useSelector((state) => state.auth);
   const cartShop = useSelector((state) => state.cartShop);
@@ -38,6 +39,7 @@ function Header() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+              <SearchImput />
               <li className="nav-item">
                 <NavLink to="/" className="nav-link " href="#">
                   Home

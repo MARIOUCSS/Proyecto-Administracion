@@ -20,6 +20,8 @@ import Orders from "./Pages/User/Orders";
 import Profile from "./Pages/User/Profile";
 import Pagedetails from "./Pages/Pagedetails";
 import Cartpages from "./Pages/Cartpages";
+import Checksuccess from "./Pages/Checksuccess";
+import Search from "./Pages/Search";
 
 function App() {
   //ojo :Si quieres acceder al dashboard de manera directa primero tiene que
@@ -31,6 +33,8 @@ function App() {
         <Route path="/" element={<Homepages />} />
         <Route path="/product/:slug" element={<Pagedetails />} />
         <Route path="/cart" element={<Cartpages />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/checkout-success" element={<Checksuccess />} />
         {/* //user */}
         <Route path="/dashboard" element={<PrivateRoute />}>
           <Route path="user" element={<Dashboard />} />

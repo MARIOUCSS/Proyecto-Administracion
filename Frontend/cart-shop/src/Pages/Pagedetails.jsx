@@ -14,6 +14,7 @@ function Pagedetails() {
   useEffect(() => {
     if (params?.slug) GetProducts();
     //Si hay una modificacion en el params slug
+    ///product/:slug -->EN EL SLUG HAY UNA MODIFICACION
   }, [params?.slug]);
 
   const GetProducts = () => {

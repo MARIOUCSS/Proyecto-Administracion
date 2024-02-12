@@ -10,6 +10,7 @@ const initialState = {
   carttotalcanti: 0,
   carttotalmonto: 0,
 };
+
 const cartSlice = createSlice({
   name: "cart",
   initialState,
@@ -108,6 +109,9 @@ const cartSlice = createSlice({
       state.carttotalcanti = cantidad;
     },
   },
+  // extraReducers:(builder)=>{
+
+  // }
 });
 //acciones
 export const {

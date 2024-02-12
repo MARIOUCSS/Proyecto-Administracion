@@ -26,7 +26,7 @@ function Login() {
     <Layout title="Login-Cart Shop">
       <div className="register">
         <form onSubmit={Handlesubmitl}>
-          <h1 className="title">Register User</h1>
+          <h1 className="title">LOGIN</h1>
 
           <div className="mb-3">
             <input

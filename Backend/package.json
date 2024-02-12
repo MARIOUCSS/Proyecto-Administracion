@@ -22,6 +22,8 @@
     "express-formidable": "^1.2.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.3",
-    "slugify": "^1.6.6"
+    "sharp": "^0.29.0",
+    "slugify": "^1.6.6",
+    "stripe": "^14.14.0"
   }
 }

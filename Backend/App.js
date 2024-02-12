@@ -29,6 +29,8 @@ const userRoute = require("./Routes/userRoute");
 app.use("/api/v1/user", userRoute);
 const ProdRoute = require("./Routes/ProductRoute");
 app.use("/api/v1/product", ProdRoute);
+const stripepagos = require("./Routes/stripe");
+app.use("/api/v1/stripe", stripepagos);
 ////
 app.listen(port, () => {
   console.log(`servidor corriendo ${port}`);

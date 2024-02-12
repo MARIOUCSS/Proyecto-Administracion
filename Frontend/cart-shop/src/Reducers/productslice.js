@@ -14,7 +14,67 @@ const initialState = {
   message: "",
   SingleProduct: {},
   ProductsRelated: [],
+  ProductFilter: [],
 };
+
+export const Filterprueba = createAsyncThunk(
+  "Product/fitlterprueba",
+  async ({ checked, radio }) => {
+    console.log(checked, radio);
+    try {
+      const { data } = await axios.post(`${url}/product/product-filterPrueba`, {
+        checked,
+        radio,
+      });
+      return data.products;
+    } catch (error) {
+      console.log("Error en la acción UpdateCategory:", error);
+      throw error; // Lanza el error para que sea capturado por el componente
+    }
+  }
+);
+export const Filterprice = createAsyncThunk("Product/Price", async (radio) => {
+  try {
+    const { data } = await axios.post(
+      `${url}/product/product-filterPrice`,
+      radio
+      //radio,
+    );
+    return data.products;
+  } catch (error) {
+    console.log("Error en la acción UpdateCategory:", error);
+    throw error; // Lanza el error para que sea capturado por el componente
+  }
+});
+export const Filtercategory = createAsyncThunk(
+  "Product/CategoryFilter",
+  async (checked) => {
+    try {
+      const { data } = await axios.post(
+        `${url}/product/product-filter`,
+        checked
+        //radio,
+      );
+      return data.products;
+    } catch (error) {
+      console.log("Error en la acción UpdateCategory:", error);
+      throw error; // Lanza el error para que sea capturado por el componente
+    }
+  }
+);
+
+export const FilterProduct = createAsyncThunk(
+  "Product/ProductFilter",
+  async (keyword) => {
+    try {
+      const { data } = await axios.get(`${url}/product/search/${keyword}`);
+      // http://localhost:5000/api/v1/product/search/betza
+      return data.result;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 export const ProductRelated = createAsyncThunk(
   "Product/ProductRelated",
   async ({ pid, cid }) => {
@@ -96,6 +156,98 @@ export const Productslice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    //filterprueba
+    builder.addCase(Filterprueba.pending, (state, action) => {
+      return { ...state, registerStatus: "pending" };
+    });
+    builder.addCase(Filterprueba.fulfilled, (state, action) => {
+      if (action.payload) {
+        const products = action.payload;
+        return {
+          ...state,
+          Products: products,
+          registerStatus: "success",
+        };
+      } else {
+        return state;
+      }
+    });
+    builder.addCase(Filterprueba.rejected, (state, action) => {
+      return {
+        ...state,
+        message: "",
+        registerStatus: "rejected",
+      };
+    });
+    //Filter Price
+    builder.addCase(Filterprice.pending, (state, action) => {
+      return { ...state, registerStatus: "pending" };
+    });
+    builder.addCase(Filterprice.fulfilled, (state, action) => {
+      if (action.payload) {
+        const products = action.payload;
+        return {
+          ...state,
+          Products: products,
+          registerStatus: "success",
+        };
+      } else {
+        return state;
+      }
+    });
+    builder.addCase(Filterprice.rejected, (state, action) => {
+      return {
+        ...state,
+        message: "",
+        registerStatus: "rejected",
+      };
+    });
+    //Filter Category
+    builder.addCase(Filtercategory.pending, (state, action) => {
+      return { ...state, registerStatus: "pending" };
+    });
+    builder.addCase(Filtercategory.fulfilled, (state, action) => {
+      if (action.payload) {
+        const products = action.payload;
+        return {
+          ...state,
+          Products: products,
+          registerStatus: "success",
+        };
+      } else {
+        return state;
+      }
+    });
+    builder.addCase(Filtercategory.rejected, (state, action) => {
+      return {
+        ...state,
+        message: "",
+        registerStatus: "rejected",
+      };
+    });
+    //Filter-Poduct
+    builder.addCase(FilterProduct.pending, (state, action) => {
+      return { ...state, registerStatus: "pending" };
+    });
+    builder.addCase(FilterProduct.fulfilled, (state, action) => {
+      if (action.payload) {
+        const products = action.payload;
+        return {
+          ...state,
+          ProductFilter: products,
+          registerStatus: "success",
+        };
+      } else {
+        return state;
+      }
+    });
+    builder.addCase(FilterProduct.rejected, (state, action) => {
+      return {
+        ...state,
+        message: "",
+        registerStatus: "rejected",
+      };
+    });
     //Related-Product
     builder.addCase(ProductRelated.pending, (state, action) => {
       return { ...state, registerStatus: "pending" };
